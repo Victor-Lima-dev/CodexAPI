@@ -2,14 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CodexAPI.Models.Enums;
 
 namespace CodexAPI.Models
 {
-    public class Requisicao
+    public class Requisicao : BaseModel
     {
-        public int RequisicaoId { get; set; }
+        
 
-        public string Status { get; set; }
+        public StatusRequisicao Status { get; set; }
 
         public string Notas { get; set; }
 

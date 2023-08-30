@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace CodexAPI.Models
 {
-    public class Resposta
+    public class Resposta : BaseModel
     {
 
-        //public int RespostaId { get; set; }
+        
         public int PerguntaId { get; set; }
 
         public string Conteudo { get; set; }

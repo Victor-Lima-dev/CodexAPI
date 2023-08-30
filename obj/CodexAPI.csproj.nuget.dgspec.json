@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Teste 1\\Projeto 2\\CodexAPI\\CodexAPI.csproj": {}
+    "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Teste 1\\Projeto 2\\CodexAPI\\CodexAPI.csproj": {}
   },
   "projects": {
-    "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Teste 1\\Projeto 2\\CodexAPI\\CodexAPI.csproj": {
+    "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Teste 1\\Projeto 2\\CodexAPI\\CodexAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Teste 1\\Projeto 2\\CodexAPI\\CodexAPI.csproj",
+        "projectUniqueName": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Teste 1\\Projeto 2\\CodexAPI\\CodexAPI.csproj",
         "projectName": "CodexAPI",
-        "projectPath": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Teste 1\\Projeto 2\\CodexAPI\\CodexAPI.csproj",
+        "projectPath": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Teste 1\\Projeto 2\\CodexAPI\\CodexAPI.csproj",
         "packagesPath": "C:\\Users\\vlima06\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Teste 1\\Projeto 2\\CodexAPI\\obj\\",
+        "outputPath": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Teste 1\\Projeto 2\\CodexAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\vlima06\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -21,6 +21,7 @@
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -54,6 +55,8 @@
               "version": "[7.0.10, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[7.0.10, )"
             },

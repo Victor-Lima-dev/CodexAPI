@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace CodexAPI.Models
 {
-    public class Pergunta
+    public class Pergunta : BaseModel
     {
-        public int PerguntaId { get; set; }
+        
 
         public int RequisicaoId { get; set; }
 

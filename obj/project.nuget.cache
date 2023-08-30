@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "r6Qa2/AjIHniigvDt3xUYIQ/EC7lka/KCE4O6B8cFziPWFK+grPhS+waGlyeQitqqk0frkWXOih20LD3+RF3uA==",
+  "dgSpecHash": "cbCA8rMsEKz69x4Zial/X/FxPjjuu7A4ed8VlBYJCZZPibFpBtmOKeFk1ec/ot60TxtUs83MrxUA/5+1CJgYyQ==",
   "success": true,
-  "projectFilePath": "c:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Teste 1\\Projeto 2\\CodexAPI\\CodexAPI.csproj",
+  "projectFilePath": "C:\\Users\\vlima06\\OneDrive - JACTO\\Área de Trabalho\\Simples\\Teste 1\\Projeto 2\\CodexAPI\\CodexAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vlima06\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\vlima06\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.4\\microsoft.aspnetcore.openapi.7.0.4.nupkg.sha512",
