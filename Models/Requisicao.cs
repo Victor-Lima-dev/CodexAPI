@@ -12,7 +12,7 @@ namespace CodexAPI.Models
 
         public StatusRequisicao Status { get; set; }
 
-        public string Notas { get; set; }
+        public string Notas { get; set; } = "";
 
         public DateTime DataInicio { get; set; }
 
