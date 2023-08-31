@@ -41,3 +41,4 @@ C:\Users\vlima06\OneDrive - JACTO\Área de Trabalho\Simples\Teste 1\Projeto 2\Co
 C:\Users\vlima06\OneDrive - JACTO\Área de Trabalho\Simples\Teste 1\Projeto 2\CodexAPI\obj\Debug\net7.0\CodexAPI.pdb
 C:\Users\vlima06\OneDrive - JACTO\Área de Trabalho\Simples\Teste 1\Projeto 2\CodexAPI\obj\Debug\net7.0\CodexAPI.genruntimeconfig.cache
 C:\Users\vlima06\OneDrive - JACTO\Área de Trabalho\Simples\Teste 1\Projeto 2\CodexAPI\obj\Debug\net7.0\ref\CodexAPI.dll
+C:\Users\vlima06\OneDrive - JACTO\Área de Trabalho\Simples\Teste 1\Projeto 2\CodexAPI\bin\Debug\net7.0\RabbitMQ.Client.dll
