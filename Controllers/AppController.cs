@@ -39,24 +39,12 @@ namespace CodexAPI.Controllers
             _context.Requisicoes.Add(requisicao);
             _context.SaveChanges();
 
-            //Mensageria(requisicao.Id.ToString());
-
 
             var url = "amqps://peelqnnc:gU-p0eAigyVNJNfNPanQHz4onYx-Oe7u@jackal.rmq.cloudamqp.com/peelqnnc";
             var queueName = "teste2";
 
-
-
-            //criar uma instancia de mensageiro
             var mensageiro = new Mensageiro(url, queueName, _context);
-
-            //publicar uma mensagem
             mensageiro.Publicar(requisicao.Id.ToString());
-
-
-            
-
-
 
             return Ok(requisicao.Id);
 
@@ -125,7 +113,7 @@ namespace CodexAPI.Controllers
                 var requisicao = _context.Requisicoes.FirstOrDefault(x => x.Id.ToString() == message);
 
 
-                 requisicao.Status = StatusRequisicao.Processando;
+                requisicao.Status = StatusRequisicao.Processando;
 
                 _context.SaveChanges();
             };
@@ -158,5 +146,28 @@ namespace CodexAPI.Controllers
 
             return Ok(requisicoes);
         }
+
+        [HttpGet("MudarStatus")]
+        public IActionResult MudarStatus([FromQuery] string message)
+        {
+
+            Console.WriteLine("Message: " + message);
+
+
+            var requisicao = _context.Requisicoes.FirstOrDefault(x => x.Id.ToString() == message);
+
+            if (requisicao == null)
+            {
+                return NotFound();
+            }
+
+            requisicao.Status = StatusRequisicao.Processando;
+
+            _context.SaveChanges();
+
+
+            return Ok();
+        }
+
     }
 }
