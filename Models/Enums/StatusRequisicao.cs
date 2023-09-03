@@ -6,21 +6,24 @@ namespace CodexAPI.Models.Enums
         TextoBaseInvalido = 2,
 
         AguardandoProcessamento = 3,
+        
+        //adicionei
+        FalhaProcessamento = 4,
 
-        Processando = 4,
+        Processando = 5,
 
-        AguardandoPerguntasRespostas = 5,
+        AguardandoPerguntasRespostas = 6,
 
-        FalhaPerguntasRespostas = 6,
+        FalhaPerguntasRespostas = 7,
 
-        PerguntasRespostasObtidas = 7,
+        PerguntasRespostasObtidas =  8,
 
-        AguardandoValidacao = 8,
+        AguardandoValidacao = 9,
 
-        FalhaValidacao = 9,
+        FalhaValidacao = 10,
 
-        Pronto = 10,
-        FalhaGenerica = 11
+        Pronto = 11,
+        FalhaGenerica = 12
         
     }
 }

@@ -25,16 +25,16 @@ namespace CodexAPI.Controllers
         {
             _context = context;
         }
-
-
-
+        
         [HttpGet("EnviarTextoBase")]
         public IActionResult EnviarTextoBase(string TextoBase)
         {
-            var requisicao = new Requisicao();
-            requisicao.DataInicio = DateTime.Now;
-            requisicao.Status = StatusRequisicao.Pendente;
-            requisicao.Id = Guid.NewGuid();
+            var requisicao = new Requisicao
+            {
+                DataInicio = DateTime.Now,
+                Status = StatusRequisicao.Pendente,
+                Id = Guid.NewGuid()
+            };
 
             _context.Requisicoes.Add(requisicao);
             _context.SaveChanges();
@@ -67,64 +67,6 @@ namespace CodexAPI.Controllers
         }
 
 
-        private void Mensageria(string requisicaoID)
-        {
-            // define a URL do servidor RabbitMQ
-            var rabbitMqUrl = "amqps://peelqnnc:gU-p0eAigyVNJNfNPanQHz4onYx-Oe7u@jackal.rmq.cloudamqp.com/peelqnnc";
-
-            // cria uma fábrica de conexões com a URL
-            var factory = new ConnectionFactory { Uri = new Uri(rabbitMqUrl) };
-
-
-            // cria uma conexão com o servidor usando a fábrica
-            using var connection = factory.CreateConnection();
-
-            // cria um canal de comunicação dentro da conexão
-            using var channel = connection.CreateModel();
-
-            // declara uma fila chamada "teste" no servidor, se ela não existir
-            channel.QueueDeclare(queue: "teste2",
-                                 durable: false,
-                                 exclusive: false,
-                                 autoDelete: false,
-                                 arguments: null);
-
-            // converte a string teste em um array de bytes
-            var body = Encoding.UTF8.GetBytes(requisicaoID);
-
-            // publica a mensagem na troca vazia ("") com a chave de roteamento "teste"
-            channel.BasicPublish(exchange: string.Empty,
-                                 routingKey: "teste2",
-                                 basicProperties: null,
-                                 body: body);
-
-
-            var consumer = new EventingBasicConsumer(channel);
-
-
-            var result = channel.QueueDeclarePassive("teste2");
-            var messageCount = result.MessageCount;
-
-            consumer.Received += (sender, eventArgs) =>
-            {
-                var body = eventArgs.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-
-                var requisicao = _context.Requisicoes.FirstOrDefault(x => x.Id.ToString() == message);
-
-
-                requisicao.Status = StatusRequisicao.Processando;
-
-                _context.SaveChanges();
-            };
-
-            channel.BasicConsume(queue: "teste2",
-                                 autoAck: false,
-                                 consumer: consumer);
-
-        }
-
-
         [HttpGet("TodasRequisicoes")]
         public IActionResult TodasRequisicoes()
         {
@@ -147,13 +89,62 @@ namespace CodexAPI.Controllers
             return Ok(requisicoes);
         }
 
-        [HttpGet("MudarStatus")]
+        private Boolean ValidarTextoBase(Requisicao requisicao)
+        {
+            return true;
+        }
+
+
+
+        [HttpGet("AguardandoProcessamento")]
         public IActionResult MudarStatus([FromQuery] string message)
         {
+            var requisicao = _context.Requisicoes.FirstOrDefault(x => x.Id.ToString() == message);
 
-            Console.WriteLine("Message: " + message);
+             if (requisicao == null)
+            {
+                return NotFound();
+            }
+            var validacaoTextoBase = ValidarTextoBase(requisicao);
+
+            if (validacaoTextoBase == false)
+            {
+                requisicao.Status = StatusRequisicao.TextoBaseInvalido;
+                _context.SaveChanges();
+                Console.WriteLine("Texto Base Invalido");
+                return Ok("Texto Base Invalido");
+            }
+            else
+            {
+                requisicao.Status = StatusRequisicao.AguardandoProcessamento;
+                _context.SaveChanges();
+                Console.WriteLine("Aguardando Processamento");
 
 
+                //enviar para o mensageiro de processamento
+
+                var url = "amqps://peelqnnc:gU-p0eAigyVNJNfNPanQHz4onYx-Oe7u@jackal.rmq.cloudamqp.com/peelqnnc";
+                var queueName = "Processamento";
+
+                var mensageiro = new Mensageiro(url, queueName, _context);
+                mensageiro.Publicar(requisicao.Id.ToString());
+
+                Console.WriteLine("Enviado ao Mensageiro");
+
+                return Ok("Aguardando Processamento");
+            }
+            
+        }
+
+
+        private Boolean EnviarGPT ()
+        {
+            return false;
+        }
+
+        [HttpGet("Processando")]
+        public IActionResult Processando([FromQuery] string message)
+        {
             var requisicao = _context.Requisicoes.FirstOrDefault(x => x.Id.ToString() == message);
 
             if (requisicao == null)
@@ -161,13 +152,25 @@ namespace CodexAPI.Controllers
                 return NotFound();
             }
 
-            requisicao.Status = StatusRequisicao.Processando;
+            var validacaoGPT = EnviarGPT();
 
-            _context.SaveChanges();
-
-
-            return Ok();
+            if (validacaoGPT == false)
+            {
+                requisicao.Status = StatusRequisicao.FalhaProcessamento;
+                _context.SaveChanges();
+                Console.WriteLine("Falha Processamento");
+                return Ok();
+            }
+            else
+            {
+                requisicao.Status = StatusRequisicao.Processando;
+                _context.SaveChanges();
+                Console.WriteLine("Processando");
+                return Ok("Processando");
+            }
         }
+
+        
 
     }
 }
