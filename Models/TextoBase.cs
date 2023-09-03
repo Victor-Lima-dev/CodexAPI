@@ -7,7 +7,7 @@ namespace CodexAPI.Models
 {
     public class TextoBase : BaseModel
     {       
-        public int RequisicaoId { get; set; }
+        public Guid RequisicaoId { get; set; }
 
         public string Conteudo { get; set; }
     }

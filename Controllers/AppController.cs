@@ -36,6 +36,15 @@ namespace CodexAPI.Controllers
                 Id = Guid.NewGuid()
             };
 
+
+            //criar texto base
+            var textoBase = new TextoBase
+            {
+                Conteudo = TextoBase,
+                RequisicaoId = requisicao.Id
+            };
+
+            _context.TextosBase.Add(textoBase);
             _context.Requisicoes.Add(requisicao);
             _context.SaveChanges();
 
@@ -89,12 +98,10 @@ namespace CodexAPI.Controllers
             return Ok(requisicoes);
         }
 
-        private Boolean ValidarTextoBase(Requisicao requisicao)
+        private Boolean ValidarTextoBase(TextoBase textoBase)
         {
             return true;
         }
-
-
 
         [HttpGet("AguardandoProcessamento")]
         public IActionResult MudarStatus([FromQuery] string message)
@@ -105,7 +112,18 @@ namespace CodexAPI.Controllers
             {
                 return NotFound();
             }
-            var validacaoTextoBase = ValidarTextoBase(requisicao);
+
+            //procurar texto base
+
+            var textoBase = _context.TextosBase.FirstOrDefault(x => x.RequisicaoId == requisicao.Id);
+
+            if (textoBase == null)
+            {
+                return NotFound();
+            }
+
+
+            var validacaoTextoBase = ValidarTextoBase(textoBase);
 
             if (validacaoTextoBase == false)
             {
@@ -121,8 +139,6 @@ namespace CodexAPI.Controllers
                 Console.WriteLine("Aguardando Processamento");
 
 
-                //enviar para o mensageiro de processamento
-
                 var url = "amqps://peelqnnc:gU-p0eAigyVNJNfNPanQHz4onYx-Oe7u@jackal.rmq.cloudamqp.com/peelqnnc";
                 var queueName = "Processamento";
 
@@ -137,9 +153,9 @@ namespace CodexAPI.Controllers
         }
 
 
-        private Boolean EnviarGPT ()
+        private Boolean EnviarGPT (TextoBase textoBase)
         {
-            return false;
+            return true;
         }
 
         [HttpGet("Processando")]
@@ -152,7 +168,17 @@ namespace CodexAPI.Controllers
                 return NotFound();
             }
 
-            var validacaoGPT = EnviarGPT();
+            //procurar texto base
+
+            var textoBase = _context.TextosBase.FirstOrDefault(x => x.RequisicaoId == requisicao.Id);
+
+            if (textoBase == null)
+            {
+                return NotFound();
+            }
+            
+
+            var validacaoGPT = EnviarGPT(textoBase);
 
             if (validacaoGPT == false)
             {
@@ -170,7 +196,7 @@ namespace CodexAPI.Controllers
             }
         }
 
-        
+
 
     }
 }

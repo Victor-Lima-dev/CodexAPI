@@ -9,7 +9,7 @@ namespace CodexAPI.Models
     {
 
         
-        public int PerguntaId { get; set; }
+        public Guid  PerguntaId { get; set; }
 
         public string Conteudo { get; set; }
 
