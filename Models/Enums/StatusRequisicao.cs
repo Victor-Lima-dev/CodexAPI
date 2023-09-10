@@ -7,7 +7,7 @@ namespace CodexAPI.Models.Enums
 
         AguardandoProcessamento = 3,
         
-        //adicionei
+    
         FalhaProcessamento = 4,
 
         Processando = 5,

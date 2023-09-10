@@ -17,5 +17,6 @@ namespace CodexAPI.Models
         public DateTime DataInicio { get; set; }
 
         public DateTime DataFim { get; set; }
+
     }
 }
